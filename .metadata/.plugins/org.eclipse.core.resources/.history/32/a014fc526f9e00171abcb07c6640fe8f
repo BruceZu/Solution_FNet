@@ -1,0 +1,97 @@
+package main.com.fNet.solutions.solution3;
+
+import java.util.List;
+
+/*
+ * Given a list of numbers, 
+ * see if you can separate them in to k groups 
+ * such that each group has the same sum. 
+ * */
+public class Separate {
+
+
+	public boolean separate(List<Integer> list, int k){
+		int sizeOfList = list.size();
+		//1. If k=1 partition, then the whole list is a subset of itself.
+		//Hence it can be separated into 1 partition
+		if(k == 1)
+			return true;
+		
+		//2. To check if the size of the list is greater than k.
+		//If the partitions k are more than the size of the given list, then 
+		//we cannot divide the list into k partitions.
+		if(list.size() < k)
+			return false;
+		
+		//3. The sum of all elements in the list is taken.
+		//If we cannot divide the whole sum by the number of partitions,
+		//then surely we cannot maintain equal sum in all partitions.
+		int sum =0;
+		for (int i: list){
+			sum += i;
+		}
+		if(sum % k != 0)
+			return false;
+		
+		int actualsumInEveryPartition = sum/k ; //Finding out what is the sum that has to be maintained in every subset
+		int sumWithinSubset[] = new int[k]; //Initialize a array of size k which holds the totalSum of every subset. 
+		for(int i=0; i<k; i++){
+			sumWithinSubset[i] =0;
+		}
+		
+		boolean elementsUsed[] = new boolean[sizeOfList];//Initialize a boolean array of the list size, which marks which elements in the list are used or not
+		for(int i=0; i<sizeOfList; i++){
+			elementsUsed[i] =false; //Initializing that none of the list elements are used now.
+		}
+		
+		sumWithinSubset[0] = list.get(sizeOfList-1);//initialize the first subset to have the last list element and mark it as used.
+		elementsUsed[sizeOfList - 1] = true; 
+		
+		 return isSeparationPossible(list, sumWithinSubset, elementsUsed,
+				 actualsumInEveryPartition, k, sizeOfList, 0, sizeOfList - 1);
+	}
+	
+
+boolean isSeparationPossible(List<Integer> list, int sumWithinSubset[], boolean elementsUsed[],
+                   int actualsumInEveryPartition, int k, int sizeOfList, int startIndex, int endIndex)
+{
+    if (sumWithinSubset[startIndex] == actualsumInEveryPartition)
+    {
+        //If start index is k-2 then the last subset will already have the required sum
+        if (startIndex == k - 2)
+            return true;
+//Recursively call the method for next iteration 
+        return isSeparationPossible(list, sumWithinSubset, elementsUsed, actualsumInEveryPartition,
+                                            k, sizeOfList, startIndex + 1, sizeOfList - 1);
+    }
+ 
+    //  Iterate from endIndex and try to add the elements into the partition sum
+    for (int i = endIndex; i >= 0; i--)
+    {
+        //  if element is already used, then continue
+        if (elementsUsed[i])
+            continue;
+        int temp = sumWithinSubset[startIndex] + list.get(i);
+ 
+        // if the above value is less than the actual required sum, then add it to the subset
+        if (temp <= actualsumInEveryPartition)
+        {
+            elementsUsed[i] = true;
+            sumWithinSubset[startIndex] += list.get(i);
+            boolean next = isSeparationPossible(list, sumWithinSubset, elementsUsed,
+                                            actualsumInEveryPartition, k, sizeOfList, startIndex, i - 1);
+            
+            elementsUsed[i] = false;
+            sumWithinSubset[startIndex] -= list.get(i);
+            if (next)
+                return true;
+        }
+    }
+    return false;
+}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

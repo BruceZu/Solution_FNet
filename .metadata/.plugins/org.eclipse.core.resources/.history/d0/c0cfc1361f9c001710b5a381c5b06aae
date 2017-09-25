@@ -1,0 +1,11 @@
+package main.com.fNet.solutions.solution1;
+
+public class LinkedList {
+
+	private Node head;
+	
+	public void buildSingleLinkedList(){
+		
+	}
+	
+}

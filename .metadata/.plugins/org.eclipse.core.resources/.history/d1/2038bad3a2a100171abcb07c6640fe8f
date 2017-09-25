@@ -1,0 +1,144 @@
+Problem 5: If the project is based on Spring 4.3.* and Hibernate 5.2, 
+is it possible to mock DB in JUnit test? 
+if not, how to do the JUnit test?  Give cases to show how to do it.
+
+Let us consider a scenario where all the Employee details are present in a DB and 
+that we are trying to check if a person is an employee (`isEmployee()`) 
+based on his `EmployeeID`.  
+
+In a real world scenario, a Service class would make a call to the underlying
+DataAccess(DAO) class to retrieve the Employee information from the DB based on his ID.
+
+The above scenario can be imitated by mocking a DB in JUnit in following ways:
+
+1. EITHER we write a number of fake class implementations for our DataAccess class
+which would return the value that we supply every time the `isEmployee()`
+(or any of the data access related calls) is called.
+
+2. OR We can use one of the available frameworks to mock the objects during 
+Unit testing like Mockito. 
+
+The following shows the above two discussed implementations for getting 
+`isEmployee()` information:
+
+*********************************************************************************
+1. Fake DataAccess Method:
+
+*********************************************************************************
+Consider we have the following EmployeeService class:
+*********************************************************************************
+
+	public class EmployeeService{
+		private IDataAccess dataAccess;
+		public EmployeeService(IDataAccess dataAccess)
+		{
+			this.dataAccess = dataAccess;
+		}
+		public boolean isEmployee(Integer employeeID)
+		{
+			boolean isEmployee = dataAccess.isEmployee(employeeID);
+			return isEmployee;
+		}
+	}
+
+*********************************************************************************	
+We write the DummyDataAccess class as follows:
+//Just for the sake of an example, we are returning true for those having
+//employee Id's between 10 to 20 and false for anything other than that. 
+*********************************************************************************
+
+	public class DummyDataAccess:IDataAccess{
+		public DummyDataAccess(){
+		}
+		public boolean isEmployee(Integer employeeID){
+			if(employeeID > 10 && employeeID < 20)
+				return true;
+			else
+				return false; 
+		}
+	}
+
+*********************************************************************************
+So we can write the test class as follows:
+*********************************************************************************
+
+	@Test
+	public void isEmployeeTest(){
+		IDataAccess fakeDataAccess = new DummyDataAccess();
+		EmployeeService employeeService = new EmployeeService(fakeDataAccess);
+		boolean result = employeeService.isEmployee(15);
+		Assert.IsTrue(result);
+	}
+*********************************************************************************
+
+2. Using Mockito Framework:
+
+*********************************************************************************
+Add the following dependency in your pom.xml to use Mockito:
+*********************************************************************************
+
+ <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-all</artifactId>
+          <version>1.9.5</version>
+ </dependency>
+ 
+*********************************************************************************
+ Consider the same Service class as above:
+*********************************************************************************
+
+	public class EmployeeService{
+		private IDataAccess dataAccess;
+		public void setEmployeeDataAccess(IDataAccess dataAccess)
+		{
+			this.dataAccess = dataAccess;
+		}
+		public boolean isEmployee(Integer employeeID)
+		{
+			boolean isEmployee = dataAccess.isEmployee(employeeID);
+			return isEmployee;
+		}
+
+*********************************************************************************
+Let us write the IDataAccess class as follows:
+*********************************************************************************
+
+	public interface IDataAccess{
+		public boolean isEmployee(Integer employeeID)
+	}
+
+*********************************************************************************
+We set up the Mock in the test as follows:
+*********************************************************************************
+
+public class EmployeeServiceTest{
+	    private EmployeeService employeeService;
+    	private IDataAccess dataAccess;
+    	
+    	//We set up the initializations and DB connections in the setupMock() 
+    	@Before
+	    public void setupMock() {
+	        employeeService = new EmployeeService();
+	        dataAccess = mock(IDataAccess.class); 
+	        employeeService.setEmployeeDataAccess(dataAccess);
+	    }
+	    
+	    @Test
+	    public void isEmployeeTest(){
+	    	boolean validEmployeeID = true;
+	    	boolean invalidEmployeeID = false;
+	    	int employeeID_1 = 15;
+	    	int employeeID_2 = 5;
+	    	
+	    	System.out.println("Checking for valid Employee ID, where EmployeeID = " + employeeID_1);
+	    	//When dataAccess.isEmployee(employeeID) is called, we return the mocked value validEmployeeID 
+	    	//and not the one that we retrieve from the DB. 
+	    	when(dataAccess.isEmployee(employeeID_1)).thenReturn(validEmployeeID); 
+	    	
+	    	System.out.println("Checking for invalid Employee ID, where EmployeeID = " + employeeID_2);
+	    	when(dataAccess.isEmployee(employeeID_2)).thenReturn(invalidEmployeeID);
+	    	
+	    }
+}
+*********************************************************************************
+

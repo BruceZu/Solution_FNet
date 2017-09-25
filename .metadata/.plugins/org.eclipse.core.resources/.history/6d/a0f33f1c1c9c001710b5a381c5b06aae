@@ -1,0 +1,6 @@
+package com.fNet.solutions.solution1;
+
+public class Node {
+	Node next;
+	 int value;
+}

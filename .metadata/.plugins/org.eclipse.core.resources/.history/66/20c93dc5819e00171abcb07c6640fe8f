@@ -1,0 +1,32 @@
+package main.com.fNet.solutions.solution4;
+
+/*
+ * Problem 4: Implementation of Singleton class
+ * Solution:
+ * The Singleton pattern is a design pattern which specifies that a class can be 
+ * instantiated only once and access to that one single instance is provided. 
+ * 
+ * We can implement it in 2 ways:
+ * 1. Lazy Initialization - here as shown in the code below, a new instance is created
+ * only if it does not exist. 
+ * 2. Eager Initialization
+ * 
+ * The following are the 2 implementations for SingleTon
+ * */
+public class SingletonImplementation {
+	private static SingletonImplementation singletonInstance =null;
+	
+	private SingletonImplementation(){
+		/*
+		 * Constructor here is made private to ensure that no one can
+		 * instantiate this class
+		 * */
+	}
+	
+	public static SingletonImplementation getSingletonInstance(){
+		if (singletonInstance == null)
+			singletonInstance = new SingletonImplementation();
+		return singletonInstance;
+	}
+	
+}

@@ -1,0 +1,52 @@
+package main.com.fNet.solutions.solution2;
+
+public class MultiDimensionArray {
+	
+	 // This is a provided function, Assume it works
+     public static Long getValue(int... indexOfDimension) {
+        //... 
+    	Long value = 0L; 
+        return value;
+    }
+    
+    public MultiDimensionArray(){
+    	
+    }
+    // lengthOfDeminsion: each dimension's length, assume it is valid: lengthOfDeminsion[i]>0.
+    public static Long sum(MultiDimensionArray mArray, int[] lengthOfDemension) { 
+      	
+Long sum = 0L; //The final sum that has to be returned.
+//    	int numberOfDimensions = lengthOfDemension.length;
+//    	int[] arr = new int[numberOfDimensions]; //Initialize an array with all zeros
+//    	int at = numberOfDimensions-2;
+//    	do
+//    	{
+//    	    for (tuple[n-1] = 0; tuple[n-1] < lengthOfDemension[n-1]; tuple[n-1]++)
+//    	    {
+//    	        sum += getValue(tuple);
+//    	    }
+//    	    while (at >= 0 && ++tuple[at] == lengthOfDemension[at])
+//    	    {
+//    	        tuple[at--] = 0;
+//    	    }
+//    	    if (at >= 0) at = n-2;
+//    	}
+//    	while (at >= 0);
+//
+    	return sum;
+    }
+	public static void main(String[] args) {
+		MultiDimensionArray mArray = new MultiDimensionArray();
+		int[][][] myArray = new int[2][3][4];
+        for (int i = 0; i < myArray.length; i++) {
+            for (int j = 0; j < myArray[i].length; j++) {
+                for (int k = 0; k < myArray[i][j].length; k++) {
+                	myArray[i][j][k] = 2;
+                }
+            }
+        }
+        mArray = myArray;
+		
+	}
+
+}

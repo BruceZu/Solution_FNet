@@ -1,0 +1,35 @@
+package main.com.fNet.solutions.solution2;
+
+public class MultiDimensionArray {
+
+	// This is a provided function, Assume it works
+	public static Long getValue(int... indexOfDimension) {
+		// ...
+		Long value = 0L;
+		return value;
+	}
+
+	// lengthOfDeminsion: each dimension's length, assume it is valid:
+	// lengthOfDeminsion[i]>0.
+	public static Long sum(MultiDimensionArray mArray, int[] lengthOfDemension) {
+
+		Long sum = 0L; // The final sum that has to be returned.
+
+		int numberOfDimensions = lengthOfDemension.length;
+		int[] arr = new int[numberOfDimensions]; // Initialize an array with all zeros
+		int at = numberOfDimensions - 2;
+		do {
+			for (arr[numberOfDimensions - 1] = 0; arr[numberOfDimensions - 1] < lengthOfDemension[numberOfDimensions - 1]; arr[numberOfDimensions - 1]++) {
+				sum += getValue(arr);
+			}
+			while (at >= 0 && ++arr[at] == lengthOfDemension[at]) {
+				arr[at--] = 0;
+			}
+			if (at >= 0)
+				at = numberOfDimensions - 2;
+		} while (at >= 0);
+
+		return sum;
+	}
+
+}

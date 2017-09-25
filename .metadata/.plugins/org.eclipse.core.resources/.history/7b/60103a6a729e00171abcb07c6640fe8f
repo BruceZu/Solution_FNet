@@ -1,0 +1,24 @@
+package main.com.fNet.solutions.solution1;
+
+import static org.junit.Assert.*;
+import main.com.fNet.solutions.solution1.LinkedList;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+public class LinkedListTest {
+	LinkedList list1 = new LinkedList();
+
+	@BeforeClass
+	public void setup(){
+		for(int i=0; i<10; i++){
+			list1.addNode(i+1);
+		}
+	}
+	
+	@Test
+	public void testLinkedListSize() {
+		assertEquals(10, list1.getSize());
+	}
+
+}

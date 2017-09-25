@@ -1,0 +1,10 @@
+package main.com.fNet.solutions.solution4;
+
+public class SingletonImplementation {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

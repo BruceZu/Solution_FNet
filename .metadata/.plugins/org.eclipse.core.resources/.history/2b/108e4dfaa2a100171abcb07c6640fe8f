@@ -1,0 +1,35 @@
+package main.com.fNet.solutions.solution4;
+
+/*
+ * Problem 4: Implementation of Singleton class
+ * Solution:
+ * The Singleton pattern is a design pattern which specifies that a class can be 
+ * instantiated only once and access to that one single instance is provided. 
+ * 
+ * We can implement it in 2 ways:
+ * 1. Lazy Initialization - here as shown in the code below, a new instance is created
+ * only if it does not exist. 
+ * 2. Eager Initialization - here always a new instance is created even
+ * though we necessarily don't need it (Check SingletonImplementationEager.java)
+ * 3. Thread-safe Initialization- here it is very similar to the Lazy initialization
+ * but the getInstance method has to be made "synchronized" to ensure
+ * thread safety  
+ * */
+public class SingletonImplementationLazy {
+	private static SingletonImplementationLazy instance =null;
+	
+	private SingletonImplementationLazy(){
+		/*
+		 * Constructor here is made private to ensure that no one can
+		 * instantiate this class
+		 * */
+	}
+	
+	public static synchronized SingletonImplementationLazy getInstance(){ //Thread safe implementation
+		if (instance == null){
+			instance = new SingletonImplementationLazy();
+		}
+		return instance;
+	}
+	
+}

@@ -1,0 +1,47 @@
+package main.com.fNet.solutions.solution1;
+
+public class LinkedList {
+
+	Node head;
+	int size;
+	
+	public LinkedList(){
+		head =null;
+		size=0;
+	}
+	
+	public void addNode(int value){
+		Node newNode = new Node(value);
+		if (head==null){
+			head= newNode;
+		}
+		else{
+			Node current = head;
+			while(current.getNext() != null){
+				current = current.getNext();
+			}
+			current.setNext(newNode);
+		}
+		size++;
+	}
+	
+	public Node reverse(Node node){
+		if(node == null || node.getNext() == null)
+			return node;
+		else{
+			Node current = node;
+			Node prevCurrent = null;
+			Node temp = null;
+			
+			while(current.getNext() != null){			
+				temp = current.getNext();
+				current.setNext(prevCurrent); // Point current node to previous node
+				prevCurrent = current; // Point prev current to current node
+				current = temp;					
+			}
+			current.setNext(prevCurrent); 
+			node = current;
+			return node;
+		}
+	}
+}

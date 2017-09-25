@@ -1,0 +1,29 @@
+package main.com.fNet.solutions.solution1;
+
+public class LinkedList {
+
+	Node head;
+	int size;
+	
+	public LinkedList(){
+		head =null;
+		size=0;
+	}
+	
+	public void addNode(int value){
+		Node newNode = new Node(value);
+		if (head==null){
+			head= newNode;
+		}
+		else{
+			Node current = head;
+			while(current.getNext() != null){
+				current = current.getNext();
+			}
+			current.setNext(newNode);
+		}
+		size++;
+	}
+	
+	
+}

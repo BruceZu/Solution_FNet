@@ -1,0 +1,34 @@
+package main.com.fNet.solutions.solution2;
+
+public class MultiDimensionArray {
+	 // This is a provided function, Assume it works
+	private MultiDimensionArray mArray;
+    public static Long getValue(int... indexOfDimension) {
+        //... 
+    	Long value = 0L; 
+        return value;
+    }
+    
+    public MultiDimensionArray(){
+    	
+    }
+    // lengthOfDeminsion: each dimension's length, assume it is valid: lengthOfDeminsion[i]>0.
+    public static Long sum(MultiDimensionArray mArray, int[] lengthOfDeminsion) { 
+   // Your resolution
+   // Time complexity:  
+   // Space complexity: 
+    	
+    	Long sum =0L;
+    	double[ ][ ] [ ] x = new double[2][3][4]; 
+    	System.out.println(x[0].length);
+    	System.out.println(x[1].length);
+    	//System.out.println(x[0].length);
+
+    	return sum;
+    }
+	public static void main(String[] args) {
+		MultiDimensionArray mArray = new MultiDimensionArray();
+		
+	}
+
+}

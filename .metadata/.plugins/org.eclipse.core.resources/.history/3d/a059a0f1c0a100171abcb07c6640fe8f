@@ -1,0 +1,14 @@
+package main.com.fNet.solutions.solution2;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class MultiDimensionArrayTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

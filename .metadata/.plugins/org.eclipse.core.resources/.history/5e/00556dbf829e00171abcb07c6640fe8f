@@ -1,0 +1,23 @@
+package main.com.fNet.solutions.solution4;
+
+/*
+ * Eager Initialization for Singleton implementation
+ * 
+ * */
+public class SingletonImplementationEager {
+private static SingletonImplementationLazy singletonInstance =null;
+	
+	private SingletonImplementationEager(){
+		/*
+		 * Constructor here is made private to ensure that no one can
+		 * instantiate this class
+		 * */
+	}
+	
+	public static SingletonImplementationLazy getSingletonInstance(){
+		if (singletonInstance == null)
+			singletonInstance = new SingletonImplementationEager();
+		return singletonInstance;
+	}
+
+}

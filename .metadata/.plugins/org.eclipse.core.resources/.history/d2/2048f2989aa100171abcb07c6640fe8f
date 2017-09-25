@@ -1,0 +1,15 @@
+Problem 5: If the project is based on Spring 4.3.* and Hibernate 5.2, 
+is it possible to mock DB in JUnit test? 
+if not, how to do the JUnit test?  Give cases to show how to do it.
+
+Let us consider a scenario where all the Employee details are present in a DB and 
+that we are trying to retrieve `EmployeeSalary` based on his `EmployeeID`.  
+
+In a real world scenario, a Service class would make a call to the underlying
+DataAccess class to retrieve the Employee information from the DB based on his ID.
+
+The above scenario can be imitated by mocking a DB in JUnit in following ways:
+1. Either we write a number of fake class implementations for our DataAccess class
+which would return the value that we supply every time the `getEmployeeSalary`
+(or any of the data access related calls) is called.
+1. We can use Mockito framework to mock the objects during Unit testing. 
